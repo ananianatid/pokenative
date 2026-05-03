@@ -1,0 +1,5 @@
+- toujours créer les const et les variables avec des annotations de styles
+- ne jamais ecrire directement du style dans la view mais utiliser une const Styles appelant StyleSheet.create
+- Les paramètres d'URL doivent toujours être des strings (utiliser `String(value)` si nécessaire)
+- utiliser `SafeAreaView` pour wrapper les composants principaux et éviter les zones non-utilisables
+- ajouter `screenOptions={{ headerShown: false }}` dans les Stack Navigator layouts pour masquer les headers par défaut
