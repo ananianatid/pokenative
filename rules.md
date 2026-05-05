@@ -3,3 +3,7 @@
 - Les paramètres d'URL doivent toujours être des strings (utiliser `String(value)` si nécessaire)
 - utiliser `SafeAreaView` pour wrapper les composants principaux et éviter les zones non-utilisables
 - ajouter `screenOptions={{ headerShown: false }}` dans les Stack Navigator layouts pour masquer les headers par défaut
+- un style guide composé de 
+    - colors
+    - Typography
+    - elevation
