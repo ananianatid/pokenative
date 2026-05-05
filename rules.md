@@ -7,3 +7,6 @@
     - colors
     - Typography
     - elevation
+
+
+traducion design systeme
