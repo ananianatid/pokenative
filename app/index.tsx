@@ -5,6 +5,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Card } from "@/components/Card";
 import { Image } from "react-native";
+import { PokemonCard } from "@/components/pokemon/pokemonCard";
 export default function Index() {
   const colors = useThemeColors()
   const pokemons = Array.from({ length: 35 }, (_, k) => ({
@@ -24,9 +25,7 @@ export default function Index() {
         contentContainerStyle={[Styles.gridGap, Styles.list]}
         columnWrapperStyle={Styles.gridGap}
         renderItem={({item})=>
-          <Card style={{flex:1/3,height:200}}>
-            <Text>{item.name}</Text>
-          </Card>
+          <PokemonCard id={item.id} name={item.name} style={{flex:1/3}}/>
         } keyExtractor={(item) => item.id.toString()} ></FlatList>
       </Card>
     </SafeAreaView>
