@@ -14,8 +14,9 @@ import { Row } from "@/components/Row";
 export default function Index() {
   const colors = useThemeColors()
   const {data, isFetching,fetchNextPage} = useInfiniteFetchQuery('/pokemon?limit=21');
-  const pokemons = data?.pages.flatMap(page => page.results)  ?? []
   const [search,setsearch] = useState('')
+  const pokemons = data?.pages.flatMap(page => page.results)  ?? [] 
+  const filteredPokemons = search ? pokemons.filter(p => p.name.includes(search.toLowerCase()) || getPokemonId(p.url).toString() === search) : pokemons 
   return (
     <SafeAreaView style={[Styles.container,{ backgroundColor: colors.tint }]} >
       <Row style={Styles.header} gap={12}> 
@@ -27,14 +28,14 @@ export default function Index() {
       </Row>
       <Card style={Styles.body}>
         <FlatList 
-        data={pokemons} 
+        data={filteredPokemons } 
         numColumns={3}
         contentContainerStyle={[Styles.gridGap, Styles.list]}
         ListFooterComponent={
           isFetching ? <ActivityIndicator color={colors.tint} /> : null
         } 
         columnWrapperStyle={Styles.gridGap}
-        onEndReached={()=>fetchNextPage()}
+        onEndReached={search ? undefined :  ()=>fetchNextPage()}
         renderItem={({item})=>
           <PokemonCard id={getPokemonId(item.url)} name={item.name} style={{flex:1/3}}/>
         } keyExtractor={(item) => item.url} ></FlatList>
