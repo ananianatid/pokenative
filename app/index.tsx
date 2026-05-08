@@ -12,6 +12,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { useState } from "react";
 import { Row } from "@/components/Row";
 import { SortButton } from "@/components/SortButton";
+import { RootView } from "@/components/RootView";
 export default function Index() {
   const colors = useThemeColors()
   const {data, isFetching,fetchNextPage} = useInfiniteFetchQuery('/pokemon?limit=21');
@@ -23,7 +24,7 @@ export default function Index() {
       (a,b) => (a[sortkey] > b[sortkey]) ? 1 : -1  )
 
   return (
-    <SafeAreaView style={[Styles.container,{ backgroundColor: colors.tint }]} >
+    <RootView >
       <Row style={Styles.header} gap={12}> 
         <Image source={require('@/assets/images/pokeball.png')} width={24} height={24} />
         <ThemedText variant="headline" color="grayLight">Pokemon</ThemedText>
@@ -46,7 +47,7 @@ export default function Index() {
           <PokemonCard id={item.id} name={item.name} style={{flex:1/3}}/>
         } keyExtractor={(item) => item.id.toString()} ></FlatList>
       </Card>
-    </SafeAreaView>
+    </RootView>
   );
 }
 const Styles = StyleSheet.create({
