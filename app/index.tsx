@@ -28,7 +28,7 @@ export default function Index() {
         <Image source={require('@/assets/images/pokeball.png')} width={24} height={24} />
         <ThemedText variant="headline" color="grayLight">Pokemon</ThemedText>
       </Row>
-      <Row gap={16} >
+      <Row gap={16} style={Styles.form} >
         <SearchBar value={search} onChange={setsearch}  />
         <SortButton value={sortkey} onChange={setsortkey} /> 
       </Row>
@@ -56,7 +56,7 @@ const Styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingBottom: 8,
   },
   body: {
     flex: 1,
@@ -68,4 +68,7 @@ const Styles = StyleSheet.create({
   list: {
     padding: 12,
   },
+  form:{
+    paddingHorizontal: 8,
+  }
 })  

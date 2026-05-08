@@ -7,7 +7,7 @@
     "icon": "./icon.png",
     "scheme": "pokenative",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    //"newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
