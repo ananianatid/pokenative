@@ -20,21 +20,22 @@ function statShortName(name: string): string {
 } 
 export function PokemonStat({style, name, value, color, ...rest}: Props) {
     const colors = useThemeColors();
+    const statValue = value ?? 0;
     return <Row gap={8} style={[style, styles.root]} {...rest}>
         <View style={[  styles.name, {borderColor: colors.grayLight}]}>    
             <ThemedText variant="subtitle3" style={{ color }}>
-                {statShortName(name)}
+                {statShortName(name ?? "")}
 
             </ThemedText>
         </View>
         <View style={styles.number}>
             <ThemedText variant="subtitle3" style={{ color }}>
-                {value?.toString().padStart(3, "0")}
+                {statValue.toString().padStart(3, "0")}
             </ThemedText>
         </View>
         <Row style={[styles.bar]}>
-            <View style={[styles.barInner, { flex:value, backgroundColor: color}]} />
-            <View style={[styles.barBackground, { flex: 255 - value , backgroundColor: color} ]}/>
+            <View style={[styles.barInner, { flex: statValue, backgroundColor: color}]} />
+            <View style={[styles.barBackground, { flex: 255 - statValue, backgroundColor: color} ]}/>
         </Row>
     </Row>
 }
