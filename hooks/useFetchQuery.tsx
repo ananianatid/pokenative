@@ -1,6 +1,5 @@
-import { Colors } from "@/app-example/constants/theme";
+import { Colors } from "@/constants/colors";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-
 const endpoint = 'https://pokeapi.co/api/v2'
 
 type API = {
@@ -31,26 +30,28 @@ type API = {
   };
   types: {
     type: {
-      name: keyof (typeof Colors)["type"] ;
+      name: keyof typeof Colors.type;
     };
   }[];
 }
 }
 
+type PaginatedAPI = Pick<API, '/pokemon?limit=21'>
+
 export function useFetchQuery<T extends keyof API>(path: T, params?: Record<string, string | number>){
-    const localUrl = endpoint +  Object.entries(params ?? {}).reduce((acc, [key, value]) => {
+    const localUrl = endpoint + Object.entries(params ?? {}).reduce<string>((acc, [key, value]) => {
         return acc.replaceAll(`[${key}]`, value.toString())
     }, path)
     return useQuery({
         queryKey: [localUrl],
         queryFn: async () => {
-           await wait(1 );
+           await wait(1000);
            return fetch(localUrl).then(res => res.json() as Promise<API[T]> )
         }
     })
 }
 
-export function useInfiniteFetchQuery<T extends keyof API>(path: T){
+export function useInfiniteFetchQuery<T extends keyof PaginatedAPI>(path: T){
     return useInfiniteQuery({
         queryKey: [path],
         initialPageParam: endpoint + path,
@@ -60,7 +61,7 @@ export function useInfiniteFetchQuery<T extends keyof API>(path: T){
             headers: {
                 'Accept': 'application/json'
             }
-           }).then(res => res.json() as Promise<API[T]>  )
+           }).then(res => res.json() as Promise<PaginatedAPI[T]>  )
         },
         getNextPageParam: (lastPage) => {
             return lastPage.next ?? null
