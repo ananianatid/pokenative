@@ -34,6 +34,18 @@ export default function Pokemon() {
       sound.playAsync() 
 
     } 
+    const onPrevious = () => {
+      const previousId = parseInt(params.id, 10) - 1
+      if(previousId > 0){
+        router.replace(`/pokemon/${previousId}`)
+      }
+    }
+    const onNext = () => {
+      const nextId = parseInt(params.id, 10) + 1
+      router.replace(`/pokemon/${nextId}`)
+    } 
+    const isFirst = params.id === "1"
+    const isLast = params.id === "151"
     return <RootView backgroundColor={colorType} > 
       <View>
         <Image
@@ -62,6 +74,10 @@ export default function Pokemon() {
         </Row>
         <View style={Styles.body}>
           <Row style={Styles.imageRow}>
+            {isFirst ? (<View style={{width: 24, height: 24}}></View>) : (<Pressable onPress={onPrevious}>
+              <Image source={require("@/assets/images/prev.png")} width={24} height={24} />
+            </Pressable>)}
+             
             <Pressable onPress={onImagePress}>
               < Image
                 source={{ uri: getPokemonArtwork(parseInt(params.id, 10)) }}
@@ -70,6 +86,10 @@ export default function Pokemon() {
                 height={200}
               />
             </Pressable> 
+
+            {isLast ? (<View style={{width: 24, height: 24}}></View>) : (<Pressable onPress={onNext}>
+              <Image source={require("@/assets/images/next.png")} width={24} height={24} />
+            </Pressable>)}  
           </Row>
 
           <Card style={Styles.card}>
@@ -148,7 +168,10 @@ const Styles = StyleSheet.create({
     position: "absolute",
     top: -140,
     zIndex: 2,
-    
+    justifyContent: "space-between",
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20  ,
   },
   artwork: {
     // alignSelf: "center",
