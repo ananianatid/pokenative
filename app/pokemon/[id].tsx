@@ -1,5 +1,6 @@
 import { Card } from "@/components/Card"
 import { PokemonSpec } from "@/components/pokemon/PokemonSpec"
+import { PokemonStat } from "@/components/pokemon/PokemonStat"
 import { PokemonType } from "@/components/pokemon/PokemonType"
 import { RootView } from "@/components/RootView"
 import { Row } from "@/components/Row"
@@ -101,6 +102,16 @@ export default function Pokemon() {
             <ThemedText variant="subtitle1" style={{ color: colorType }}>
               Base stats
             </ThemedText>
+            <View style={{alignSelf: "stretch", gap: 8 }}>
+                {pokemon?.stats.map((stat) => (
+                    <PokemonStat 
+                        key={stat.stat.name}
+                        name={stat.stat.name}
+                        value={stat.base_stat}
+                        color={colorType}
+                    />
+                ))} 
+            </View>
           </Card> 
         </View>
       </View>
@@ -133,5 +144,7 @@ const Styles = StyleSheet.create({
     paddingTop: 60,
     gap: 16,
     alignItems: "center",
+    paddingBottom: 20,
+
   },
 }) // StyleSheet.create() has proper type inference
