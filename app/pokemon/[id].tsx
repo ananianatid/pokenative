@@ -12,6 +12,7 @@ import { useThemeColors } from "@/hooks/useThemeColors"
 import { router, useLocalSearchParams } from "expo-router"
 import { Image, Pressable, StyleSheet, View } from "react-native" 
 import { basePokemonStats } from "@/functions/pokemon"
+import { Audio} from "expo-av"
 export default function Pokemon() {
     const colors = useThemeColors()
     const params = useLocalSearchParams() as { id: string }
@@ -23,6 +24,16 @@ export default function Pokemon() {
     const types = pokemon?.types ?? []
     const bio = species?.flavor_text_entries?.find((entry) => entry.language.name === "en")?.flavor_text.replaceAll("\n", " ") ?? "No description available."  
     const stats = pokemon?.stats ?? basePokemonStats
+
+    const onImagePress = async () => {
+      const cry = pokemon?.cries?.latest
+      if(!cry){
+        return
+      } 
+      const { sound } = await Audio.Sound.createAsync({ uri: cry },{shouldPlay: true})
+      sound.playAsync() 
+
+    } 
     return <RootView backgroundColor={colorType} > 
       <View>
         <Image
@@ -50,12 +61,16 @@ export default function Pokemon() {
           </ThemedText>
         </Row>
         <View style={Styles.body}>
-          < Image
-            source={{ uri: getPokemonArtwork(parseInt(params.id, 10)) }}
-            style={Styles.artwork}
-            width={200}
-            height={200}
-          />
+          <Row style={Styles.imageRow}>
+            <Pressable onPress={onImagePress}>
+              < Image
+                source={{ uri: getPokemonArtwork(parseInt(params.id, 10)) }}
+                style={Styles.artwork}
+                width={200}
+                height={200}
+              />
+            </Pressable> 
+          </Row>
 
           <Card style={Styles.card}>
             <Row gap={16 }  style={{height:20}} >
@@ -129,11 +144,14 @@ const Styles = StyleSheet.create({
     right: 8,
     top: 8,
   },
-  artwork: {
-    alignSelf: "center",
+  imageRow:{
     position: "absolute",
     top: -140,
     zIndex: 2,
+    
+  },
+  artwork: {
+    // alignSelf: "center",
   },
   body: {
     marginTop: 144,
