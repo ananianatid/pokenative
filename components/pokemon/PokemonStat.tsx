@@ -3,6 +3,7 @@ import { Row } from "../Row";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
+import Animated from "react-native-reanimated";
 type Props = ViewProps & {
     name?: string,
     value?: number, 
@@ -20,7 +21,7 @@ function statShortName(name: string): string {
 export function PokemonStat({style, name, value, color, ...rest}: Props) {
     const colors = useThemeColors();
     return <Row gap={8} style={[style, styles.root]} {...rest}>
-        <View style={[  styles.name, {borderColor: colors.grayLight}]}>
+        <View style={[  styles.name, {borderColor: colors.grayLight}]}>    
             <ThemedText variant="subtitle3" style={{ color }}>
                 {statShortName(name)}
 

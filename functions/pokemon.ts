@@ -6,13 +6,52 @@ export function getPokemonArtwork(id: number | string): string {
 }
 export function formatWeight(weight: number): string {
     if (!weight){
-        return ""
+        return "--"
     }
     return (weight / 10).toString().replace('.', ',') + ' kg'
 }  
 export function formatHeight(height: number): string {
     if (!height){
-        return ""
+        return "-- "
     }
     return (height / 10).toString().replace('.', ',') + ' m'
 }  
+
+export const basePokemonStats = [
+{
+"base_stat": 1,
+"stat": {
+"name": "hp"
+}
+},
+{
+"base_stat": 1,
+"stat": {
+"name": "attack"
+}
+},
+{
+"base_stat": 1,
+"stat": {
+"name": "defense"
+}
+},
+{
+"base_stat": 1,
+"stat": {
+"name": "special-attack"
+}
+},
+{
+"base_stat": 1,
+"stat": {
+"name": "special-defense"
+}
+},
+{
+"base_stat": 1,
+"stat": {
+"name": "speed"
+}
+}
+]

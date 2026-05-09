@@ -10,8 +10,8 @@ import { formatHeight, formatWeight, getPokemonArtwork } from "@/functions/pokem
 import { useFetchQuery } from "@/hooks/useFetchQuery"
 import { useThemeColors } from "@/hooks/useThemeColors"
 import { router, useLocalSearchParams } from "expo-router"
-import { Image, Pressable, StyleSheet, View } from "react-native"
-
+import { Image, Pressable, StyleSheet, View } from "react-native" 
+import { basePokemonStats } from "@/functions/pokemon"
 export default function Pokemon() {
     const colors = useThemeColors()
     const params = useLocalSearchParams() as { id: string }
@@ -22,8 +22,8 @@ export default function Pokemon() {
     const colorType = mainType ? Colors.type[mainType] : colors.grayWhite
     const types = pokemon?.types ?? []
     const bio = species?.flavor_text_entries?.find((entry) => entry.language.name === "en")?.flavor_text.replaceAll("\n", " ") ?? "No description available."  
-
-    return <RootView style={{ backgroundColor: colorType }}> 
+    const stats = pokemon?.stats ?? basePokemonStats
+    return <RootView backgroundColor={colorType} > 
       <View>
         <Image
           source={require("@/assets/images/Pokeball-artwork.png")}
@@ -50,7 +50,7 @@ export default function Pokemon() {
           </ThemedText>
         </Row>
         <View style={Styles.body}>
-          <Image
+          < Image
             source={{ uri: getPokemonArtwork(parseInt(params.id, 10)) }}
             style={Styles.artwork}
             width={200}
@@ -58,7 +58,7 @@ export default function Pokemon() {
           />
 
           <Card style={Styles.card}>
-            <Row gap={8}>
+            <Row gap={16 }  style={{height:20}} >
               {types.map(({ type }) => (
                 <PokemonType key={type.name} name={type.name} />
               ))}
@@ -103,7 +103,7 @@ export default function Pokemon() {
               Base stats
             </ThemedText>
             <View style={{alignSelf: "stretch", gap: 8 }}>
-                {pokemon?.stats.map((stat) => (
+                {stats.map((stat) => (
                     <PokemonStat 
                         key={stat.stat.name}
                         name={stat.stat.name}

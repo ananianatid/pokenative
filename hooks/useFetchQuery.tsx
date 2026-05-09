@@ -53,7 +53,7 @@ export function useFetchQuery<T extends keyof API>(path: T, params?: Record<stri
     return useQuery({
         queryKey: [localUrl],
         queryFn: async () => {
-           await wait(1000);
+           await wait(1);
            return fetch(localUrl).then(res => res.json() as Promise<API[T]> )
         }
     })
@@ -64,7 +64,7 @@ export function useInfiniteFetchQuery<T extends keyof PaginatedAPI>(path: T){
         queryKey: [path],
         initialPageParam: endpoint + path,
         queryFn: async ({pageParam}) => {
-           await wait(1000);
+           await wait(1);
            return fetch(pageParam, {
             headers: {
                 'Accept': 'application/json'
