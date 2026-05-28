@@ -1,21 +1,27 @@
 # Pokenative
 
-Application Pokedex Pokemon construite comme projet d'apprentissage React Native. Liste les Pokemon avec scroll infini, recherche, tri et pages de detail via l'API PokeAPI.
+Projet d'apprentissage React Native — un Pokédex en 3 versions.
 
-## Stack technique
+## Structure
 
-- React Native / Expo SDK 54
-- Expo Router 6
-- TanStack React Query
-- TypeScript
+```
+pokenative/
+├── original/    ← Le projet original (Expo + React Native)
+├── html/        ← Version HTML/JS pur (étape 1)
+├── app/         ← La reprise (bientôt)
+└── learning/    ← Cours et exercices
+```
 
-## Etat d'avancement
+## Progression
 
-Prototype / projet d'apprentissage -- ecran liste et detail fonctionnels, page de detail partielle.
+1. `html/` → Comprendre fetch, async/await, DOM sans framework
+2. `app/` → Reprendre le projet React Native avec les bases solides
+3. `original/` → Le projet final pour référence
 
-## Demarrage
+## Lancer la version HTML
 
 ```bash
-npm install
-npx expo start
+cd html
+python3 -m http.server 8080
+# → http://localhost:8080
 ```
