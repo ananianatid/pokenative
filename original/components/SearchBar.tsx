@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     wrapper:{
         flex:1,
         borderRadius:16,
-        height: 32, 
+        height: 50, 
         paddingHorizontal: 12
     },
     input: {
